@@ -16,5 +16,8 @@
 		"xsd",
 		"xml",
 		"schemas"
-	]
+	],
+	"dependencies": {
+		"java": "^0.12.1"
+	}
 }
