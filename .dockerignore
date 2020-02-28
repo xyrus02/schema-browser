@@ -1,0 +1,9 @@
+src/node/node_modules/
+target/
+tools/
+LICENSE
+AUTHORS
+README.MD
+*.iml
+.*
+Dockerfile
