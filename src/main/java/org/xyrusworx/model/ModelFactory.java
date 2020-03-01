@@ -18,9 +18,6 @@ public class ModelFactory {
 
     private static final ModelFactory INSTANCE = new ModelFactory();
 
-    private ModelFactory(){
-    }
-
     public static ModelFactory getInstance() {
         return INSTANCE;
     }

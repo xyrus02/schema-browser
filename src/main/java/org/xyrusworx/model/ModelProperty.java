@@ -6,8 +6,6 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import org.xmlet.xsdparser.xsdelements.XsdAttribute;
 import org.xmlet.xsdparser.xsdelements.XsdElement;
 
-import java.beans.BeanProperty;
-
 public interface ModelProperty extends ModelToken {
 
     String getNamespace();
@@ -57,56 +55,47 @@ class ModelSimpleProperty implements ModelProperty {
     }
 
     @Override
-    @BeanProperty
     @JsonIgnore
     public String getLabel() {
         return this.name;
     }
 
-    @BeanProperty
     public String getName() { return this.name; }
 
     @Override
-    @BeanProperty
     public String getNamespace() {
         return this.parent.getNamespace();
     }
 
-    @BeanProperty
     public String getCardinality() {
         return ModelToken.getCardinality(this);
     }
 
     @Override
-    @BeanProperty
     @JsonIgnore
     public int getMinOccurs() {
         return this.minOccurs;
     }
 
     @Override
-    @BeanProperty
     @JsonIgnore
     public int getMaxOccurs() {
         return this.maxOccurs;
     }
 
     @Override
-    @BeanProperty
     @JsonIgnore
     public boolean isMaxUnbounded() {
         return this.isMaxUnbounded;
     }
 
     @Override
-    @BeanProperty
     @JsonIgnore
     public boolean isAttribute() {
         return this.isAttribute;
     }
 
     @Override
-    @BeanProperty
     @JsonIgnore
     public boolean isContainer() {
         return false;
@@ -145,47 +134,40 @@ class ModelChildObject extends ModelElement implements ModelProperty {
     }
 
     @Override
-    @BeanProperty
     @JsonIgnore
     public String getLabel() {
         return super.getName();
     }
 
-    @BeanProperty
     public String getCardinality() {
         return ModelToken.getCardinality(this);
     }
 
     @Override
-    @BeanProperty
     @JsonIgnore
     public int getMinOccurs() {
         return this.minOccurs;
     }
 
     @Override
-    @BeanProperty
     @JsonIgnore
     public int getMaxOccurs() {
         return this.maxOccurs;
     }
 
     @Override
-    @BeanProperty
     @JsonIgnore
     public boolean isMaxUnbounded() {
         return this.isMaxUnbounded;
     }
 
     @Override
-    @BeanProperty
     @JsonIgnore
     public boolean isAttribute() {
         return false;
     }
 
     @Override
-    @BeanProperty
     @JsonIgnore
     public boolean isContainer() {
         return false;

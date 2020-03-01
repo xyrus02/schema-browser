@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import org.xmlet.xsdparser.xsdelements.*;
 import org.xmlet.xsdparser.xsdelements.elementswrapper.ReferenceBase;
 
-import java.beans.BeanProperty;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,42 +67,35 @@ abstract class ModelTokenContainerImpl implements ModelTokenContainer {
     }
 
     @Override
-    @BeanProperty
     public abstract String getLabel();
 
     @Override
-    @BeanProperty
     @JsonIgnore
     public abstract ModelPropertyContainerType getContainerType();
 
     @Override
-    @BeanProperty
     @JsonIgnore
     public int getMinOccurs() {
         return this.minOccurs;
     }
 
     @Override
-    @BeanProperty
     @JsonIgnore
     public int getMaxOccurs() {
         return this.maxOccurs;
     }
 
     @Override
-    @BeanProperty
     @JsonIgnore
     public boolean isMaxUnbounded() {
         return this.isMaxUnbounded;
     }
 
-    @BeanProperty
     public String getCardinality() {
         return ModelToken.getCardinality(this);
     }
 
     @Override
-    @BeanProperty
     public ModelToken[] getChildren() {
         if (this.childrenArray == null) {
             this.childrenArray = new ModelToken[this.children.size()];
@@ -119,7 +111,6 @@ abstract class ModelTokenContainerImpl implements ModelTokenContainer {
     }
 
     @Override
-    @BeanProperty
     public boolean isContainer() {
         return true;
     }
@@ -152,13 +143,11 @@ class ModelTokenSequenceImpl extends ModelTokenContainerImpl {
     }
 
     @Override
-    @BeanProperty
     public String getLabel() {
         return "Sequence";
     }
 
     @Override
-    @BeanProperty
     public ModelPropertyContainerType getContainerType() {
         return ModelPropertyContainerType.SEQUENCE;
     }
@@ -174,13 +163,11 @@ class ModelTokenChoiceImpl extends ModelTokenContainerImpl {
     }
 
     @Override
-    @BeanProperty
     public String getLabel() {
         return "Sequence";
     }
 
     @Override
-    @BeanProperty
     public ModelPropertyContainerType getContainerType() {
         return ModelPropertyContainerType.SEQUENCE;
     }
@@ -196,13 +183,11 @@ class ModelTokenAllImpl extends ModelTokenContainerImpl {
     }
 
     @Override
-    @BeanProperty
     public String getLabel() {
         return "Sequence";
     }
 
     @Override
-    @BeanProperty
     public ModelPropertyContainerType getContainerType() {
         return ModelPropertyContainerType.SEQUENCE;
     }

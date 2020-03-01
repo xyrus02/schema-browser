@@ -8,7 +8,6 @@ import org.xmlet.xsdparser.xsdelements.*;
 import org.xyrusworx.DefaultModelErrorHandler;
 import org.xyrusworx.ModelErrorHandler;
 
-import java.beans.BeanProperty;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,12 +43,10 @@ public abstract class ModelElement {
         this.loadElement(xsElement);
     }
 
-    @BeanProperty
     public String getName() {
         return this.name;
     }
 
-    @BeanProperty
     public String getNamespace() {
         if (this.parent == null) {
             return this.namespace;
@@ -59,13 +56,11 @@ public abstract class ModelElement {
         }
     }
 
-    @BeanProperty
     @JsonIgnore
     public ModelElement getParent() {
         return this.parent;
     }
 
-    @BeanProperty
     public ModelProperty[] getAttributes() {
         return this.attributes;
     }

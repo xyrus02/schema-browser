@@ -9,7 +9,6 @@ import org.xmlet.xsdparser.xsdelements.XsdElement;
 import org.xmlet.xsdparser.xsdelements.XsdSchema;
 import org.xyrusworx.ModelErrorHandler;
 
-import java.beans.BeanProperty;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,17 +33,14 @@ public class Model {
         rootElementsArray = null;
     }
 
-    @BeanProperty
     public String getName() {
         return this.name;
     }
 
-    @BeanProperty
     public String getNamespace() {
         return this.namespace;
     }
 
-    @BeanProperty
     public ModelObject[] getObjects() {
         if (this.rootElementsArray == null) {
             this.rootElementsArray = new ModelObject[this.rootElements.size()];
