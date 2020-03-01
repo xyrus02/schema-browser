@@ -2,7 +2,7 @@
             xmlns:tns="http://tempuri.org/PurchaseOrderSchema.xsd"
             targetNamespace="http://tempuri.org/PurchaseOrderSchema.xsd"
             elementFormDefault="qualified">
-    <xsd:element name="PurchaseOrder" type="tns:PurchaseOrderType"/>
+
     <xsd:complexType name="PurchaseOrderType">
         <xsd:sequence>
             <xsd:element name="ShipTo" type="tns:USAddress" maxOccurs="2"/>
@@ -21,4 +21,6 @@
         </xsd:sequence>
         <xsd:attribute name="country" type="xsd:NMTOKEN" fixed="US"/>
     </xsd:complexType>
+
+    <xsd:element name="PurchaseOrder" type="tns:PurchaseOrderType"/>
 </xsd:schema>

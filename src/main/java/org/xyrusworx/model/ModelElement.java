@@ -88,6 +88,10 @@ public abstract class ModelElement {
         List<ModelSimpleProperty> attributes = new ArrayList<>();
         List<ModelToken> tokens = new ArrayList<>();
 
+        if (complexType == null) {
+            errorHandler.handle(String.format("Unable to resolve type: %s", xsElement.getType()));
+        }
+
         if (complexType != null) {
             complexType.getXsdAttributes().map(x -> new ModelSimpleProperty(this.owner, this, x)).forEach(attributes::add);
             complexType.getXsdAttributeGroup().flatMap(XsdAttributeGroup::getAllAttributes).map(x -> new ModelSimpleProperty(this.owner, this, x)).forEach(attributes::add);

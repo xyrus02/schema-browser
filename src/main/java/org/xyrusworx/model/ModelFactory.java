@@ -41,6 +41,11 @@ public class ModelFactory {
 
         Model resultModel = new Model(xsName, xsRootSchema, errorHandler);
         xsParser.getResultXsdElements().forEach(resultModel::addRootElement);
+
+        xsParser.getUnsolvedReferences().forEach(usr -> {
+            errorHandler.handle(String.format("Unsolved reference: %s", usr.getUnsolvedReference().getRef()));
+        });
+
         return resultModel;
     }
 
