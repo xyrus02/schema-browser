@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<StringDictionary
+	xmlns="http://schemas.xyrus-worx.org/2020/localization"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://schemas.xyrus-worx.org/2020/localization localization-output.xsd">
+
+	<String id="SummaryPageTitle">Summary</String>
+	<String id="SummaryPageHeadlineDefault">Mapping</String>
+	<String id="SummaryPageHeadlineRootTokens">Root elements</String>
+	<String id="SummaryPageHeadlineSimpleTypes">Simple data types</String>
+	<String id="SummaryPageHeadlineAbstractTypes">Abstract data types</String>
+	<String id="SummaryPageHeaderSimpleTypeName">Type</String>
+	<String id="SummaryPageHeaderSimpleTypeConstraints">Constraints</String>
+	<String id="SummaryPageHeaderAbstractTypeName">Abstract type</String>
+	<String id="SummaryPageHeaderAbstractTypeImplementations">Possible implementations</String>
+	<String id="SummaryPageListModelUnknownItemType">Whitespace-separated list of items</String>
+	<String id="SummaryPageListModelSpecificItemType">Whitespace-separated list of items with the following constraints:</String>
+	<String id="SummaryPageEnumerationLinkLabel">see enumeration</String>
+
+	<String id="EnumerationHeaderValue">Value</String>
+	<String id="EnumerationHeaderDescription">Description</String>
+
+	<String id="ComplexTypeHeaderProperty">Property</String>
+	<String id="ComplexTypeHeaderType">Type</String>
+	<String id="ComplexTypeHeaderCardinality">Cardinality / mandatory</String>
+	<String id="ComplexTypeHeaderDescription">Description</String>
+	<String id="ComplexTypeHeaderTargetClass">Target: data source</String>
+	<String id="ComplexTypeHeaderTargetProperty">Target: property</String>
+	<String id="ComplexTypeHeaderAnnotation">Annotations / instructions</String>
+
+	<String id="CardinalityOptional">Optional</String>
+	<String id="CardinalityMandatory">Mandatory</String>
+	<String id="CardinalityMultiple">multiple allowed</String>
+	<String id="CardinalityMultipleWithMaxBoundary">max. {0}</String>
+
+	<String id="UnknownTypePlaceholder">(unknown type)</String>
+	
+	<String id="Conjunction">and</String>
+	<String id="Disjunction">or</String>
+
+	<String id="ValueClassInteger">integer number</String>
+	<String id="ValueClassString">text</String>
+	<String id="ValueClassDecimal">decimal number</String>
+	<String id="ValueClassBoolean">boolean value</String>
+	<String id="ValueClassDuration">duration</String>
+	<String id="ValueClassDate">date</String>
+	<String id="ValueClassTime">time</String>
+	<String id="ValueClassDateTime">date and time</String>
+	<String id="ValueClassYearMonth">year and month</String>
+	<String id="ValueClassYear">year</String>
+	<String id="ValueClassMonth">month</String>
+	<String id="ValueClassMonthDay">month and day</String>
+	<String id="ValueClassDay">day of month</String>
+	<String id="ValueClassBinaryHex">hexadecimal string</String>
+	<String id="ValueClassBinaryBase64">base64 string</String>
+	<String id="ValueClassUri">uniform resource identifier (URI)</String>
+	<String id="ValueClassOther">value</String>
+
+	<String id="QuantificationAtLeast">at least</String>
+	<String id="QuantificationAtMost">at most</String>
+
+	<String id="QuantificationExactNumber">equal to</String>
+	<String id="QuantificationLessThanNumber">less than</String>
+	<String id="QuantificationMoreThanNumber">more than</String>
+
+	<String id="QuantificationExactDate">on</String>
+	<String id="QuantificationExactTime">at</String>
+	<String id="QuantificationExactDateTime">on/at</String>
+
+	<String id="QuantificationLessThanDate">earlier than</String>
+	<String id="QuantificationLessThanTime">earlier than</String>
+	<String id="QuantificationLessThanDateTime">earlier than</String>
+
+	<String id="QuantificationMoreThanDate">later than</String>
+	<String id="QuantificationMoreThanTime">later than</String>
+	<String id="QuantificationMoreThanDateTime">later than</String>
+
+	<String id="TextConstraintFixedLength">with fixed length {0}</String>
+	<String id="TextConstraintLengthBetween">with length between {0} and {1}</String>
+	<String id="TextConstraintMinimumLength">with minimum length {0}</String>
+	<String id="TextConstraintMaximumLength">with maximum length {0}</String>
+	<String id="TextConstraintPattern">matching pattern: {0}</String>
+
+	<String id="ContentPlaceholder">(content)</String>
+</StringDictionary>

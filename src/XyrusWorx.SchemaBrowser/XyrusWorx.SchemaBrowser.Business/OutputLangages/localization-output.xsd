@@ -1,0 +1,30 @@
+<xs:schema 
+  xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+  xmlns:loc="http://schemas.xyrus-worx.org/2020/localization" 
+  targetNamespace="http://schemas.xyrus-worx.org/2020/localization" 
+  elementFormDefault="qualified" 
+  attributeFormDefault="unqualified">
+
+	<xs:simpleType name="ST_Identifier">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1" />
+			<xs:pattern value="^[a-zA-Z_][a-zA-Z0-9_]+$" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:complexType name="CT_StringDictionary">
+		<xs:sequence>
+			<xs:element name="String" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="id" type="loc:ST_Identifier" use="required" />
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:element name="StringDictionary" type="loc:CT_StringDictionary" />
+</xs:schema>
