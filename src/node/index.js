@@ -1,5 +1,6 @@
 const java = require('./system/java').getJavaInstance();
+const modelFactory = java.newInstanceSync('org.xyrusworx.SchemaModelFactory');
 
-const test = java.newInstanceSync('org.xyrusworx.Test');
+const arg = process.argv[2];
 
-console.log(test.methodSync());
+console.log(modelFactory.createModelSync(arg));
