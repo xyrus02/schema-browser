@@ -25,16 +25,9 @@
                 <DataTemplate DataType="{x:Type viewModels:ComplexTypeViewModel}">
 	                <Border MinHeight="24" BorderBrush="#aaa">
 		                <Border.BorderThickness>
-			                <Binding Path="IsLast" Mode="OneWay">
+			                <Binding Path="IsRoot">
 				                <Binding.Converter>
-					                <xw:BooleanConverter>
-						                <xw:BooleanConverter.TrueValue>
-							                <Thickness>0</Thickness>
-						                </xw:BooleanConverter.TrueValue>
-						                <xw:BooleanConverter.FalseValue>
-							                <Thickness>0,0,0,1</Thickness>
-						                </xw:BooleanConverter.FalseValue>
-					                </xw:BooleanConverter>
+					                <xw:BooleanConverter TrueValue="0,0,0,1" FalseValue="0" />
 				                </Binding.Converter>
 			                </Binding>
 		                </Border.BorderThickness>
@@ -61,7 +54,15 @@
 			                <ItemsControl Grid.Column="1" ItemsSource="{Binding Children, Mode=OneWay}" x:Name="items" Height="Auto" VerticalAlignment="Top">
 				                <ItemsControl.ItemTemplate>
 					                <DataTemplate DataType="{x:Type viewModels:IPropertyContainerViewModel}">
-						                <views:TypeModelView />
+						                <views:TypeModelView>
+							                <FrameworkElement.Visibility>
+								                <Binding Path="IsEmpty" Mode="OneWay">
+									                <Binding.Converter>
+										                <xw:BooleanToInvisibilityConverter />
+									                </Binding.Converter>
+								                </Binding>
+							                </FrameworkElement.Visibility>
+						                </views:TypeModelView>
 					                </DataTemplate>
 				                </ItemsControl.ItemTemplate>
 			                </ItemsControl>
@@ -69,21 +70,7 @@
 	                </Border>
 				</DataTemplate>
                 <DataTemplate DataType="{x:Type viewModels:PropertyGroupViewModel}">
-					<Border MinHeight="24" BorderBrush="#aaa">
-						<Border.BorderThickness>
-							<Binding Path="IsLast" Mode="OneWay">
-								<Binding.Converter>
-									<xw:BooleanConverter>
-										<xw:BooleanConverter.TrueValue>
-											<Thickness>0</Thickness>
-										</xw:BooleanConverter.TrueValue>
-										<xw:BooleanConverter.FalseValue>
-											<Thickness>0,0,0,1</Thickness>
-										</xw:BooleanConverter.FalseValue>
-									</xw:BooleanConverter>
-								</Binding.Converter>
-							</Binding>
-						</Border.BorderThickness>
+	                <Border MinHeight="24" BorderBrush="#aaa" BorderThickness="0,0,0,1">
 						<Grid>
 							<Grid.ColumnDefinitions>
 								<ColumnDefinition Width="36" />
@@ -107,7 +94,15 @@
 							<ItemsControl Grid.Column="1" ItemsSource="{Binding Children, Mode=OneWay}" x:Name="items" Height="Auto" VerticalAlignment="Top">
 								<ItemsControl.ItemTemplate>
 									<DataTemplate DataType="{x:Type viewModels:IPropertyContainerViewModel}">
-										<views:TypeModelView />
+										<views:TypeModelView>
+											<FrameworkElement.Visibility>
+												<Binding Path="IsEmpty" Mode="OneWay">
+													<Binding.Converter>
+														<xw:BooleanToInvisibilityConverter />
+													</Binding.Converter>
+												</Binding>
+											</FrameworkElement.Visibility>
+										</views:TypeModelView>
 									</DataTemplate>
 								</ItemsControl.ItemTemplate>
 							</ItemsControl>
@@ -159,7 +154,7 @@
                             </ToggleButton.Style>
                         </ToggleButton>
                         
-                        <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" BorderBrush="#aaa" BorderThickness="0,1,0,0">
+                        <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" BorderBrush="#aaa" BorderThickness="1" Margin="10">
                             <FrameworkElement.Visibility>
                                 <MultiBinding>
                                     <MultiBinding.Converter>

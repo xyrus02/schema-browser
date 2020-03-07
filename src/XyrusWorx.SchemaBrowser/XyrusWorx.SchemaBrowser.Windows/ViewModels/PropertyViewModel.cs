@@ -21,11 +21,12 @@ namespace XyrusWorx.SchemaBrowser.Windows.ViewModels
             Model = model;
             mIsLast = isLast;
             
-            ComplexType = model.DataType is ComplexTypeModel ct && !typeStack.Contains(ct.TypeName) ? new ComplexTypeViewModel(services, typeStack, ct, isLast) : null;
+            ComplexType = model.DataType is ComplexTypeModel ct && !typeStack.Contains(ct.TypeName) ? new ComplexTypeViewModel(services, typeStack, ct, isLast, false) : null;
             typeStack.Add(model.DataType.TypeName);
         }
 
         public bool IsLast => mIsLast(this);
+        public bool IsEmpty => false;
 
         public string DisplayName => Model.PropertyName;
         public string DataTypeName => Model.DataType.DisplayName;

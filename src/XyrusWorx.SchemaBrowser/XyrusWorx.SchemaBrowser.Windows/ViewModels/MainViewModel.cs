@@ -76,7 +76,7 @@ namespace XyrusWorx.SchemaBrowser.Windows.ViewModels
 
 				await foreach (var model in loader.GetRootsAsync())
 				{
-					var vm = new ComplexTypeViewModel(mServices, new HashSet<XName>(), model, item => true);
+					var vm = new ComplexTypeViewModel(mServices, new HashSet<XName>(), model, item => true, true);
 					app.Execute(() => Schemas.Items.Add(vm));
 				}
 			}

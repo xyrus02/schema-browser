@@ -15,7 +15,7 @@ namespace XyrusWorx.SchemaBrowser.Windows.ViewModels
         private readonly IServiceLocator mServices;
         private readonly Func<object, bool> mIsLast;
 
-        public ComplexTypeViewModel(IServiceLocator services, HashSet<XName> typeStack, ComplexTypeModel model, Func<object, bool> isLast)
+        public ComplexTypeViewModel(IServiceLocator services, HashSet<XName> typeStack, ComplexTypeModel model, Func<object, bool> isLast, bool isRoot)
         {
             mServices = services;
             Model = model;
@@ -26,6 +26,8 @@ namespace XyrusWorx.SchemaBrowser.Windows.ViewModels
         }
         
         public bool IsLast => mIsLast(this);
+        public bool IsEmpty => !Children.Any();
+        public bool IsRoot { get; }
 
         public string DisplayName => Model.DisplayName;
         public string Namespace => Model.TypeName.NamespaceName;

@@ -30,6 +30,8 @@ namespace XyrusWorx.SchemaBrowser.Windows.ViewModels
 
         public bool IsLast => mIsLast(this);
 
+        public bool IsEmpty => !Children.Any();
+
         public string DisplayName => Model.GroupType switch
         {
             PropertyGroupType.Sequence => "in this order",
