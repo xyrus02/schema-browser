@@ -6,9 +6,9 @@ using JetBrains.Annotations;
 namespace XyrusWorx.SchemaBrowser.Business.ObjectModel 
 {
 	[PublicAPI]
-	public abstract class PropertyTypeModel : TargetableModel, IEnumerable<IXsdPropertyDescription>
+	public abstract class PropertyTypeModel : TargetableModel, IEnumerable<IXsdPropertyGroupDescription>
 	{
-		public IEnumerator<IXsdPropertyDescription> GetEnumerator() => Children().GetEnumerator();
+		public IEnumerator<IXsdPropertyGroupDescription> GetEnumerator() => Children().GetEnumerator();
 		IEnumerator IEnumerable.GetEnumerator() => Children().GetEnumerator();
 
 		public string Annotation { get; set; }
@@ -24,9 +24,7 @@ namespace XyrusWorx.SchemaBrowser.Business.ObjectModel
 		
 		public abstract bool IsSimpleContent { get; }
 		
-		public bool IsActive { get; set; }
-
 		[NotNull]
-		protected abstract IEnumerable<IXsdPropertyDescription> Children();
+		protected abstract IEnumerable<IXsdPropertyGroupDescription> Children();
 	}
 }

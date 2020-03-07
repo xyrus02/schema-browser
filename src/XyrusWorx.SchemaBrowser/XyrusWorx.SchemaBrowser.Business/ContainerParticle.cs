@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using System.Linq;
+using JetBrains.Annotations;
 using XyrusWorx.Diagnostics;
 using XyrusWorx.SchemaBrowser.Business.ObjectModel;
 
@@ -23,6 +24,8 @@ namespace XyrusWorx.SchemaBrowser.Business
 					return;
 				}
 			}
+			
+			var virtualGroup = new PropertyGroupModel(model, PropertyGroupType.Virtual);
 
 			foreach (var child in source.Elements())
 			{
@@ -46,14 +49,10 @@ namespace XyrusWorx.SchemaBrowser.Business
 						case "all":
 						case "group":
 						case "attributeGroup":
-							context.Read<ContainerParticle>(model);
-							break;
 						case "choice":
-							// todo
-							context.Log.WriteWarning($"The complex type \"{model.TypeName}\" uses the unsupported schema element \"choice\".");
+							context.Read<PropertyGroupParticle>(model);
 							break;
 						case "simpleContent":
-							// todo
 							context.Read<SimpleContentParticle>(model);
 							break;
 						case "complexContent":
@@ -61,11 +60,16 @@ namespace XyrusWorx.SchemaBrowser.Business
 							break;
 						case "element":
 						case "attribute":
-							context.Read<PropertyParticle>(model);
+							context.Read<PropertyParticle>(virtualGroup);
 							break;
 					
 					}
 				}
+			}
+
+			if (virtualGroup.Properties.Any())
+			{
+				model.PropertyGroups.Insert(0, virtualGroup);
 			}
 		}
 	}

@@ -73,8 +73,15 @@ namespace XyrusWorx.SchemaBrowser.Business
 			property.MinOccurs = 1;
 			property.MaxOccurs = 1;
 			property.IsContent = true;
+			
+			var propertyGroup = new PropertyGroupModel(model, PropertyGroupType.Virtual);
+			
+			propertyGroup.Properties.Add(new StringKey(), property);
+			
+			propertyGroup.MinOccurs = 1;
+			propertyGroup.MaxOccurs = 1;
 
-			model.Properties.Add(new StringKey(), property);
+			model.PropertyGroups.Add(propertyGroup);
 			model.IsComplexTypeWithSimpleContent = true;
 		}
 	}

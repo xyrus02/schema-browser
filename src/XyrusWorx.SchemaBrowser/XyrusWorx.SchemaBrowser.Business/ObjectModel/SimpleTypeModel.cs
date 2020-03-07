@@ -20,7 +20,7 @@ namespace XyrusWorx.SchemaBrowser.Business.ObjectModel
 		
 		public override bool IsSimpleContent => true;
 
-		protected override IEnumerable<IXsdPropertyDescription> Children()
+		protected override IEnumerable<IXsdPropertyGroupDescription> Children()
 		{
 			yield break;
 		}

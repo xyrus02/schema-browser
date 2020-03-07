@@ -14,7 +14,7 @@ namespace XyrusWorx.SchemaBrowser.Business.ObjectModel
 		public List<XName> BaseTypeNames { get; } = new List<XName>();
 		
 		[NotNull]
-		public Dictionary<StringKey, PropertyModel> Properties { get; } = new Dictionary<StringKey, PropertyModel>();
+		public List<PropertyGroupModel> PropertyGroups { get; } = new List<PropertyGroupModel>();
 		
 		public override string DisplayName => TypeName.LocalName;
 		
@@ -26,12 +26,12 @@ namespace XyrusWorx.SchemaBrowser.Business.ObjectModel
 
 		public void InheritFrom(ComplexTypeModel baseModel)
 		{
-			foreach (var property in baseModel.Properties)
+			foreach (var property in baseModel.PropertyGroups)
 			{
-				Properties.AddIfMissing(property.Key, property.Value);
+				PropertyGroups.Add(property);
 			}
 		}
 
-		protected override IEnumerable<IXsdPropertyDescription> Children() => Properties.Values;
+		protected override IEnumerable<IXsdPropertyGroupDescription> Children() => PropertyGroups;
 	}
 }

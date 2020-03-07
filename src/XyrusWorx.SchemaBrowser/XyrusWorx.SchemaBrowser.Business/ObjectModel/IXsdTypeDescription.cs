@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 namespace XyrusWorx.SchemaBrowser.Business.ObjectModel
 {
 	[PublicAPI]
-	public interface IXsdTypeDescription : IEnumerable<IXsdPropertyDescription>, IXsdModel
+	public interface IXsdTypeDescription : IEnumerable<IXsdPropertyGroupDescription>, IXsdModel
 	{
 		XName TypeName { get; }
 		XName ContentTypeName { get; }
