@@ -3,19 +3,15 @@
 namespace XyrusWorx.SchemaBrowser.Business.ObjectModel
 {
 	[PublicAPI]
-	public interface IXsdPropertyDescription : IXsdModel
+	public interface IXsdPropertyDescription : IXsdModel, IXsdAbstractPropertyDescription
 	{
 		string PropertyName { get; }
 		string Annotation { get; }
 
 		IXsdTypeDescription DataType { get; }
 
-		uint MinOccurs { get; }
-		uint MaxOccurs { get; }
-
 		bool IsAttribute { get; }
 		bool IsNillable { get; }
 		bool IsContent { get; }
-		bool IsMandatory { get; }
 	}
 }
