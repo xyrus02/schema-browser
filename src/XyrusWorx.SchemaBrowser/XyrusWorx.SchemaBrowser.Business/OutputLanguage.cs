@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using JetBrains.Annotations;
-using XyrusWorx;
 using XyrusWorx.Collections;
 
 namespace XyrusWorx.SchemaBrowser.Business
@@ -54,7 +53,6 @@ namespace XyrusWorx.SchemaBrowser.Business
 			else
 			{
 				Debug.Assert(false, "Failed to load language file: " + cultureInfo.IetfLanguageTag);
-				mXml = new XDocument(new XElement(XName.Get("StringDictionary", mNamespace)));
 			}
 			
 			mStrings = new Dictionary<StringKey, string>();

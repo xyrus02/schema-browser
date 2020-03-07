@@ -1,5 +1,8 @@
-﻿namespace XyrusWorx.SchemaBrowser.Business
+﻿using JetBrains.Annotations;
+
+namespace XyrusWorx.SchemaBrowser.Business
 {
+	[PublicAPI]
 	public static class StringResolverExtensions
 	{
 		public static string Format(this IStringResolver instance, StringKey key, params object[] values)

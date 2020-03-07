@@ -5,6 +5,7 @@ using JetBrains.Annotations;
 
 namespace XyrusWorx.SchemaBrowser.Business.ObjectModel 
 {
+	[PublicAPI]
 	public abstract class PropertyTypeModel : TargetableModel, IEnumerable<IXsdPropertyDescription>
 	{
 		public IEnumerator<IXsdPropertyDescription> GetEnumerator() => Children().GetEnumerator();

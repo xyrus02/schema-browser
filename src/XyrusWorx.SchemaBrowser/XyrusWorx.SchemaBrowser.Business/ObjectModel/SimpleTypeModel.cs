@@ -4,6 +4,7 @@ using JetBrains.Annotations;
 
 namespace XyrusWorx.SchemaBrowser.Business.ObjectModel 
 {
+	[PublicAPI]
 	public class SimpleTypeModel : PropertyTypeModel, IAnnotableModel, INamedModel, IXsdTypeDescription
 	{
 		public override XName TypeName { get; set; }

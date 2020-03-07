@@ -11,6 +11,7 @@ using XyrusWorx.Diagnostics;
 
 namespace XyrusWorx.SchemaBrowser.Business
 {
+	[PublicAPI]
 	public class XmlIndex
 	{
 		internal const string XsdNamespace = @"http://www.w3.org/2001/XMLSchema";
@@ -112,15 +113,18 @@ namespace XyrusWorx.SchemaBrowser.Business
 			
 			mCallbacks.GetValueByKeyOrDefault(schemaElement.Normalize())?.Remove(callback);
 		}
-		
-		[NotNull]
-		public IResult Process(string path)
+
+		public void ClearContext()
 		{
 			ResetCallback?.Invoke();
 			
 			mRootTypeCandidates.Clear();
 			mElements.Clear();
-				
+		}
+		
+		[NotNull]
+		public IResult Process(string path)
+		{
 			try
 			{
 				RootElement = XDocument.Load(path).Root;
@@ -157,12 +161,7 @@ namespace XyrusWorx.SchemaBrowser.Business
 			if (isUri)
 			{
 				var match = Regex.Match(pathOrUri, "(.*)/(.*)");
-				if (!match.Success)
-				{
-					return ("", pathOrUri);
-				}
-
-				return (match.Groups[1].Value, match.Groups[2].Value);
+				return !match.Success ? ("", pathOrUri) : (match.Groups[1].Value, match.Groups[2].Value);
 			}
 
 			var isRooted = Path.IsPathRooted(pathOrUri);
@@ -180,15 +179,10 @@ namespace XyrusWorx.SchemaBrowser.Business
 				return appendix;
 			}
 
-			if (pathOrUri.Contains("://"))
-			{
-				return $"{pathOrUri.TrimEnd('/')}/{appendix.TrimStart('/')}";
-			}
-
-			return Path.Combine(pathOrUri, appendix);
+			return pathOrUri.Contains("://") ? $"{pathOrUri.TrimEnd('/')}/{appendix.TrimStart('/')}" : Path.Combine(pathOrUri, appendix);
 		}
 
-		private IResult ProcessCore(StreamReader reader, string pathOrUri, int level)
+		private IResult ProcessCore(TextReader reader, string pathOrUri, int level)
 		{
 			try
 			{
@@ -210,8 +204,8 @@ namespace XyrusWorx.SchemaBrowser.Business
 					{
 						continue;
 					}
-
-					if (element.Name.LocalName == "import")
+					
+					if (new[]{"import", "include"}.Contains(element.Name.LocalName))
 					{
 						var referencePath = element.Attribute("schemaLocation")?.Value;
 						if (referencePath == null || string.IsNullOrWhiteSpace(referencePath))
@@ -296,7 +290,7 @@ namespace XyrusWorx.SchemaBrowser.Business
 						}
 					}
 					
-					InsertElement(element, level);
+					InsertElement(element);
 				}
 
 				return Result.Success;
@@ -306,15 +300,9 @@ namespace XyrusWorx.SchemaBrowser.Business
 				return Result.CreateError($"The XML schema failed to parse. {exception.GetBaseException().Message}");
 			}
 		}
-
-		private IResult ProcessReference(StreamReader reader, string uri, int level)
+		private IResult ProcessReference(TextReader reader, string uri, int level)
 		{
-			if (!mProcessedPaths.Add(uri.ToLowerInvariant()))
-			{
-				return Result.Success;
-			}
-
-			return ProcessCore(reader, uri, level + 1);
+			return !mProcessedPaths.Add(uri.ToLowerInvariant()) ? Result.Success : ProcessCore(reader, uri, level + 1);
 		}
 		private IResult ProcessReference(string path, string referencingFile, int level)
 		{
@@ -334,7 +322,7 @@ namespace XyrusWorx.SchemaBrowser.Business
 
 			if (!File.Exists(path))
 			{
-				return Result.CreateError($"The  file \"{referencingFile}\" contains a reference which can't be resolved. The file \"{path}\" doesn't exist or is unaccessible.");
+				return Result.CreateError($"The  file \"{referencingFile}\" contains a reference which can't be resolved. The file \"{path}\" doesn't exist or is inaccessible.");
 			}
 
 			using (var streamReader = new StreamReader(path))
@@ -343,7 +331,7 @@ namespace XyrusWorx.SchemaBrowser.Business
 			}
 		}
 		
-		private void InsertElement(XElement element, int level = 0)
+		private void InsertElement(XElement element)
 		{
 			var key = element.Attribute("name")?.Value;
 			var name = GetQualifiedName(key, element);
@@ -355,7 +343,7 @@ namespace XyrusWorx.SchemaBrowser.Business
 
 			var listName = new StringKey(element.Name.LocalName).Normalize();
 			var listInstance = mElements.GetValueByKeyOrDefault(listName);
-			var listEntry = new XmlIndexEntry(name, element, level);
+			var listEntry = new XmlIndexEntry(name, element);
 
 			if (listInstance == null)
 			{

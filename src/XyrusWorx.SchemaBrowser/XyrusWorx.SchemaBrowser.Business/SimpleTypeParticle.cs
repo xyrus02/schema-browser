@@ -1,8 +1,10 @@
-﻿using XyrusWorx.Diagnostics;
+﻿using JetBrains.Annotations;
+using XyrusWorx.Diagnostics;
 using XyrusWorx.SchemaBrowser.Business.ObjectModel;
 
 namespace XyrusWorx.SchemaBrowser.Business
 {
+	[PublicAPI]
 	public class SimpleTypeParticle : XsdParticle<SimpleTypeModel>
 	{
 		protected override void ProcessOverride(ProcessorContext context, SimpleTypeModel model)
@@ -52,24 +54,21 @@ namespace XyrusWorx.SchemaBrowser.Business
 			var qualifiedName = context.Index.GetQualifiedName(token, context.Peek());
 			var referencedType = context.Index.GlobalLookup(qualifiedName);
 
-			if (referencedType == null)
+			if (referencedType != null) return context.Read<SimpleTypeParticle, SimpleTypeModel>(qualifiedName);
+			if (qualifiedName?.NamespaceName == XmlIndex.XsdNamespace)
 			{
-				if (qualifiedName?.NamespaceName == XmlIndex.XsdNamespace)
+				var systemType = context.Init<SimpleTypeModel>(qualifiedName);
+				if (systemType.Specification == null)
 				{
-					var systemType = context.Init<SimpleTypeModel>(qualifiedName);
-					if (systemType.Specification == null)
-					{
-						systemType.Specification = new SystemTypeSpecificationModel(systemType, context.GetOutputLanguageResolver());
-					}
-
-					return systemType;
+					systemType.Specification = new SystemTypeSpecificationModel(systemType, context.GetOutputLanguageResolver());
 				}
 
-				context.Log.WriteWarning($"The simple type \"{model.TypeName}\" references type \"{qualifiedName}\" but the target type was not found in the index. This could be because a schema import is missing or there is a more general schema file.");
-				return null;
+				return systemType;
 			}
 
-			return context.Read<SimpleTypeParticle, SimpleTypeModel>(qualifiedName);
+			context.Log.WriteWarning($"The simple type \"{model.TypeName}\" references type \"{qualifiedName}\" but the target type was not found in the index. This could be because a schema import is missing or there is a more general schema file.");
+			return null;
+
 		}
 	}
 }

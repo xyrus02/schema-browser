@@ -2,6 +2,7 @@
 
 namespace XyrusWorx.SchemaBrowser.Business.ObjectModel
 {
+	[PublicAPI]
 	public class SimpleTypeListModel : ISimpleTypeSpecificationModel
 	{
 		[CanBeNull]

@@ -15,9 +15,11 @@
 
   <ItemGroup>
     <Resource Include="Resources\Images\app.ico" />
-    <Resource Include="Resources\Images\logo-192.png" />
-    <Resource Include="Resources\Images\logo-512.png" />
     <Resource Include="Resources\Images\logo.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\XyrusWorx.SchemaBrowser.Business\XyrusWorx.SchemaBrowser.Business.csproj" />
   </ItemGroup>
 
 </Project>

@@ -6,29 +6,29 @@ using XyrusWorx.Diagnostics;
 
 namespace XyrusWorx.SchemaBrowser.Business.ObjectModel 
 {
+	[PublicAPI]
 	public class Processor
 	{
-		private readonly ProcessorContext mContext;
 		private ComplexTypeModel mOutputModel;
 
 		public Processor([NotNull] XmlIndex index, [NotNull] LocalizationService localizationService, ILogWriter log = null)
 		{
-			mContext = new ProcessorContext(index, localizationService, log);
+			Context = new ProcessorContext(index, localizationService, log);
 		}
 
 		[NotNull]
-		public ProcessorContext Context => mContext;
+		public ProcessorContext Context { get; }
 
 		[CanBeNull]
 		public ComplexTypeModel GetOutput() => mOutputModel;
 
 		[NotNull]
-		public IEnumerable<T> Get<T>() => mContext.All<T>();
+		public IEnumerable<T> Get<T>() => Context.All<T>();
 
 		[NotNull]
 		public Processor Process(string key, XElement context)
 		{
-			var name = mContext.Index.GetQualifiedName(key, context);
+			var name = Context.Index.GetQualifiedName(key, context);
 			return Process(name);
 		}
 		
@@ -37,10 +37,10 @@ namespace XyrusWorx.SchemaBrowser.Business.ObjectModel
 		{
 			mOutputModel = null;
 			
-			var typeElement = mContext.Index.Lookup("complexType", qualifiedName);
+			var typeElement = Context.Index.Lookup("complexType", qualifiedName);
 			if (typeElement == null)
 			{
-				mContext.Log.WriteError($"The complex type \"{qualifiedName}\" was not found in the index. Did you select the correct schema file?");
+				Context.Log.WriteError($"The complex type \"{qualifiedName}\" was not found in the index. Did you select the correct schema file?");
 				return this;
 			}
 
@@ -50,16 +50,16 @@ namespace XyrusWorx.SchemaBrowser.Business.ObjectModel
 
 		private ComplexTypeModel Process(XmlIndexEntry entry)
 		{
-			var typeQualifiedName = mContext.Index.GetQualifiedName(entry.Element.Attribute("name")?.Value, entry.Element);
+			var typeQualifiedName = Context.Index.GetQualifiedName(entry.Element.Attribute("name")?.Value, entry.Element);
 			if (typeQualifiedName == null)
 			{
 				// should not happen as the index uses the name attribute and excludes CTs without one
 				throw new XmlSchemaException("Missing 'name' attribute for complex type.");
 			}
 
-			using (mContext.For(entry.Element))
+			using (Context.For(entry.Element))
 			{
-				return mContext.Read<ComplexTypeParticle, ComplexTypeModel>(typeQualifiedName);
+				return Context.Read<ComplexTypeParticle, ComplexTypeModel>(typeQualifiedName);
 			}
 		}
 	}

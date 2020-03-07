@@ -11,11 +11,10 @@ using XyrusWorx.SchemaBrowser.Business.ObjectModel;
 
 namespace XyrusWorx.SchemaBrowser.Business
 {
+	[PublicAPI]
 	public class ProcessorContext
 	{
 		private readonly LocalizationService mLocalizationService;
-		private readonly XmlIndex mIndex;
-		private readonly ILogWriter mLog;
 
 		private readonly ConcurrentDictionary<Type, ConcurrentDictionary<XName, object>> mCache;
 		private readonly ConcurrentDictionary<int, Stack<XElement>> mElementStacks;
@@ -23,24 +22,20 @@ namespace XyrusWorx.SchemaBrowser.Business
 		private IStringResolver mOutputLanguageResolver;
 		
 		private string mOutputLanguage;
-		private string mAnnotationLanguage;
 
 		public ProcessorContext([NotNull] XmlIndex index, [NotNull] LocalizationService localizationService, ILogWriter log = null)
 		{
-			mIndex = index ?? throw new ArgumentNullException(nameof(index));
+			Index = index ?? throw new ArgumentNullException(nameof(index));
 			mLocalizationService = localizationService ?? throw new ArgumentNullException(nameof(localizationService));
-			mLog = log ?? new NullLogWriter();
+			Log = log ?? new NullLogWriter();
 			
 			mElementStacks = new ConcurrentDictionary<int, Stack<XElement>>();
 			mCache = new ConcurrentDictionary<Type, ConcurrentDictionary<XName, object>>();
 			mOutputLanguageResolver = localizationService.GetOutputLanguage(CultureInfo.InvariantCulture);
 		}
 
-		public string AnnotationLanguage
-		{
-			get => mAnnotationLanguage;
-			set => mAnnotationLanguage = value;
-		}
+		public string AnnotationLanguage { get; set; }
+
 		public string OutputLanguage
 		{
 			get => mOutputLanguage;
@@ -54,14 +49,14 @@ namespace XyrusWorx.SchemaBrowser.Business
 		}
 
 		[NotNull]
-		public XmlIndex Index => mIndex;
-		
+		public XmlIndex Index { get; }
+
 		[NotNull]
-		public ILogWriter Log => mLog;
-		
+		public ILogWriter Log { get; }
+
 		[NotNull]
 		public T Init<T>([NotNull] XName qualifiedName) where T: INamedModel, new() 
-			=> (T)GetCache(typeof(T)).GetOrAdd(qualifiedName, x => new T() { TypeName = qualifiedName });
+			=> (T)GetCache(typeof(T)).GetOrAdd(qualifiedName, x => new T { TypeName = qualifiedName });
 		
 		public bool Init<T>([NotNull] XName qualifiedName, out T model) where T: INamedModel, new()
 		{

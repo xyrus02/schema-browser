@@ -3,6 +3,7 @@ using JetBrains.Annotations;
 
 namespace XyrusWorx.SchemaBrowser.Business.ObjectModel
 {
+	[PublicAPI]
 	public class SystemTypeSpecificationModel : ISimpleTypeSpecificationModel
 	{
 		public SystemTypeSpecificationModel([NotNull] SimpleTypeModel typeInstance, [NotNull] IStringResolver stringResolver)

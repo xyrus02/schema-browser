@@ -2,11 +2,11 @@
 using System.Globalization;
 using System.Text.RegularExpressions;
 using JetBrains.Annotations;
-using XyrusWorx;
 using XyrusWorx.Collections;
 
 namespace XyrusWorx.SchemaBrowser.Business
 {
+	[PublicAPI]
 	public class LocalizationService
 	{
 		private readonly Dictionary<StringKey, IStringResolver> mOutputLanguages = new Dictionary<StringKey, IStringResolver>();

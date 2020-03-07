@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Xml.Linq;
 using JetBrains.Annotations;
 
 namespace XyrusWorx.SchemaBrowser.Business.ObjectModel
 {
+	[PublicAPI]
 	public abstract class SimpleTypeConstraint
 	{
 		private readonly SimpleTypeModel mConstrainedType;
@@ -18,7 +20,7 @@ namespace XyrusWorx.SchemaBrowser.Business.ObjectModel
 		[NotNull]
 		public IEnumerable<AnnotatedValue> GetConstraintDescription()
 		{
-			if (Enumerable.Any(Enumeration))
+			if (Enumeration.Any())
 			{
 				foreach (var item in Enumeration)
 				{
@@ -35,6 +37,7 @@ namespace XyrusWorx.SchemaBrowser.Business.ObjectModel
 		public List<AnnotatedValue> Enumeration { get; } = new List<AnnotatedValue>();
 
 		[CanBeNull]
+		[SuppressMessage("ReSharper", "StringLiteralTypo")]
 		internal static SimpleTypeConstraint Create([NotNull] SimpleTypeModel forType, [NotNull] IStringResolver outputLanguage)
 		{
 			if (forType == null)
@@ -104,6 +107,7 @@ namespace XyrusWorx.SchemaBrowser.Business.ObjectModel
 		}
 
 		internal XName GetRootTypeName() => GetRootTypeName(mConstrainedType);
+		[SuppressMessage("ReSharper", "StringLiteralTypo")]
 		internal static string GetSystemTypeClassification(XName qualifiedName, [NotNull] IStringResolver outputLanguage)
 		{
 			if (outputLanguage == null)
@@ -187,12 +191,7 @@ namespace XyrusWorx.SchemaBrowser.Business.ObjectModel
 		
 		private static XName GetRootTypeName(SimpleTypeModel simpleTypeModel)
 		{
-			if (simpleTypeModel.TypeName.NamespaceName == XmlIndex.XsdNamespace)
-			{
-				return simpleTypeModel.TypeName;
-			}
-			
-			return simpleTypeModel.BaseTypeNames.FirstOrDefault(x => x.NamespaceName == XmlIndex.XsdNamespace);
+			return simpleTypeModel.TypeName.NamespaceName == XmlIndex.XsdNamespace ? simpleTypeModel.TypeName : simpleTypeModel.BaseTypeNames.FirstOrDefault(x => x.NamespaceName == XmlIndex.XsdNamespace);
 		}
 	}
 }

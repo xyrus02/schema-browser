@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Linq;
 using JetBrains.Annotations;
-using XyrusWorx;
 using XyrusWorx.Collections;
 
 namespace XyrusWorx.SchemaBrowser.Business.ObjectModel 
 {
+	[PublicAPI]
 	public class ComplexTypeModel : PropertyTypeModel, IAnnotableModel, INamedModel, IXsdTypeDescription
 	{
 		public override XName TypeName { get; set; }

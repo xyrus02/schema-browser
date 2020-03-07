@@ -10,7 +10,7 @@
 		<EventTrigger RoutedEvent="UserControl.Loaded">
 			<BeginStoryboard>
 				<Storyboard>
-					<DoubleAnimation Storyboard.TargetName="canvas" Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="00:00:01.5">
+					<DoubleAnimation Storyboard.TargetName="Canvas" Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="00:00:01.5">
 						<DoubleAnimation.EasingFunction>
 							<QuadraticEase EasingMode="EaseOut" />
 						</DoubleAnimation.EasingFunction>
@@ -25,22 +25,22 @@
 			<EventTrigger RoutedEvent="FrameworkElement.Loaded">
 				<BeginStoryboard>
 					<Storyboard RepeatBehavior="Forever" Duration="0:0:1.000">
-						<DoubleAnimationUsingKeyFrames Storyboard.TargetName="scale" Storyboard.TargetProperty="ScaleY">
+						<DoubleAnimationUsingKeyFrames Storyboard.TargetName="Scale" Storyboard.TargetProperty="ScaleY">
 							<LinearDoubleKeyFrame KeyTime="0:0:0.000" Value="0"/>
 							<LinearDoubleKeyFrame KeyTime="0:0:1.000" Value="1"/>
 						</DoubleAnimationUsingKeyFrames>
-						<DoubleAnimationUsingKeyFrames Storyboard.TargetName="scale" Storyboard.TargetProperty="ScaleX">
+						<DoubleAnimationUsingKeyFrames Storyboard.TargetName="Scale" Storyboard.TargetProperty="ScaleX">
 							<LinearDoubleKeyFrame KeyTime="0:0:0.000" Value="0"/>
 							<LinearDoubleKeyFrame KeyTime="0:0:1.000" Value="1"/>
 						</DoubleAnimationUsingKeyFrames>
 
-						<DoubleAnimation From="0.5" To="0" Duration="0:0:1.000" Storyboard.TargetName="ellipse" Storyboard.TargetProperty="Opacity"/>
+						<DoubleAnimation From="0.5" To="0" Duration="0:0:1.000" Storyboard.TargetName="Ellipse" Storyboard.TargetProperty="Opacity"/>
 					</Storyboard>
 				</BeginStoryboard>
 			</EventTrigger>
 		</Grid.Triggers>
 		<Viewbox Width="64" Height="64">
-			<Canvas Width="192" Height="192" x:Name="canvas">
+			<Canvas Width="192" Height="192" x:Name="Canvas">
 				<Path Stroke="White" Data="m38.352709,124.397024l0,-15.694208c0,-3.912163 3.285761,-7.084033 7.340288,-7.084033l99.21063,0c4.054527,0 7.340288,3.17187 7.340288,7.084033l0,15.694208" StrokeThickness="10" StrokeMiterLimit="1" StrokeLineJoin="Round" Fill="Transparent"/>
 				<Rectangle Stroke="White" StrokeThickness="5" Canvas.Left="89.603752" Canvas.Top="77.989454" Width="11.389121" Height="43.428824" Fill="White" />
 				<Path Stroke="White" Data="m55.43639,135.31714zm62.64016,36.44519l0,-36.44519c0,-2.517 -2.03865,-4.55565 -4.55564,-4.55565l-36.44519,0c-2.517,0 -4.55565,2.03865 -4.55565,4.55565l0,36.44519c0,2.51699 2.03865,4.55564 4.55565,4.55564l36.44519,0c2.51699,0 4.55564,-2.03865 4.55564,-4.55564z" Fill="Transparent" StrokeThickness="10" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeMiterLimit="1" StrokeLineJoin="Round" />
@@ -51,9 +51,9 @@
 		</Viewbox>
 		<Border Width="256" Height="256">
 			<Grid Background="Transparent">
-				<Ellipse RenderTransformOrigin="0.5,0.5" Fill="White" x:Name="ellipse">
+				<Ellipse RenderTransformOrigin="0.5,0.5" Fill="White" x:Name="Ellipse">
 					<Ellipse.RenderTransform>
-						<ScaleTransform x:Name="scale"/>
+						<ScaleTransform x:Name="Scale"/>
 					</Ellipse.RenderTransform>
 				</Ellipse>
 			</Grid>

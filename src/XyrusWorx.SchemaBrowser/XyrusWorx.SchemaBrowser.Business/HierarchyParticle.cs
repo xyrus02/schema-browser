@@ -1,9 +1,11 @@
 ﻿using System.Xml.Linq;
+using JetBrains.Annotations;
 using XyrusWorx.Diagnostics;
 using XyrusWorx.SchemaBrowser.Business.ObjectModel;
 
 namespace XyrusWorx.SchemaBrowser.Business
 {
+	[PublicAPI]
 	public class HierarchyParticle : XsdParticle<ComplexTypeModel>
 	{
 		protected override void ProcessOverride(ProcessorContext context, ComplexTypeModel model)

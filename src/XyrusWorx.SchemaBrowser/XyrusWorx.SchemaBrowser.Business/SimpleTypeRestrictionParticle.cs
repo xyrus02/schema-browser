@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using JetBrains.Annotations;
 using XyrusWorx.Collections;
 using XyrusWorx.SchemaBrowser.Business.ObjectModel;
 
 namespace XyrusWorx.SchemaBrowser.Business
 {
+	[PublicAPI]
 	public class SimpleTypeRestrictionParticle : XsdParticle<SimpleTypeModel>
 	{
 		protected override void ProcessOverride(ProcessorContext context, SimpleTypeModel model)

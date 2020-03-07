@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using JetBrains.Annotations;
 
 namespace XyrusWorx.SchemaBrowser.Business.ObjectModel
 {
+	[PublicAPI]
 	public class ValueConstraint : SimpleTypeConstraint
 	{
 		private readonly IStringResolver mOutputLanguage;
@@ -20,6 +22,7 @@ namespace XyrusWorx.SchemaBrowser.Business.ObjectModel
 		public string Pattern { get; set; }
 
 		// todo localize
+		[SuppressMessage("ReSharper", "StringLiteralTypo")]
 		protected override string GetConstraintDescriptionOverride()
 		{
 			var sb = new StringBuilder();

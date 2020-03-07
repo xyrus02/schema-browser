@@ -1,5 +1,8 @@
-﻿namespace XyrusWorx.SchemaBrowser.Business.ObjectModel
+﻿using JetBrains.Annotations;
+
+namespace XyrusWorx.SchemaBrowser.Business.ObjectModel
 {
+	[PublicAPI]
 	public class AnnotatedValue : IAnnotableModel
 	{
 		public AnnotatedValue(string value = null)

@@ -1,12 +1,23 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using JetBrains.Annotations;
+using XyrusWorx.Runtime;
+using XyrusWorx.SchemaBrowser.Windows.Services;
+using XyrusWorx.SchemaBrowser.Windows.Views;
 using XyrusWorx.Windows.ViewModels;
 
 namespace XyrusWorx.SchemaBrowser.Windows.ViewModels
 {
+	[UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
 	public class MainViewModel : ViewModel
 	{
+		private readonly IServiceLocator mServices;
 		private bool mIsLoading = true;
 
+		public MainViewModel([NotNull] IServiceLocator services)
+		{
+			mServices = services ?? throw new ArgumentNullException(nameof(services));
+		}
+		
 		public bool IsLoading
 		{
 			get => mIsLoading;
@@ -17,15 +28,66 @@ namespace XyrusWorx.SchemaBrowser.Windows.ViewModels
 				OnPropertyChanged();
 			}
 		}
+		
+		public SchemaCollectionViewModel Schemas { get; } = new SchemaCollectionViewModel();
 
-		public async void Load()
+		public async void Load([NotNull] ICommandLine commandLine)
 		{
-			IsLoading = true;
+			if (commandLine == null) throw new ArgumentNullException(nameof(commandLine));
 
-			// todo
-			await Task.Delay(2000);
+			var app = mServices.Resolve<IApplicationHost>();
+			
+			using var methodScope = new Scope(
+				onLeave: () => IsLoading = false,
+				onEnter: () => { }).Enter();
 
-			IsLoading = false;
+			string schemaPath;
+			
+			if (commandLine.SchemaPaths == null || commandLine.SchemaPaths.Length == 0)
+			{
+				var askResult = await mServices
+					.Resolve<IOpenFileDialog>()
+					.Owner(mServices.Resolve<MainWindow>())
+					.Title("Open schema...")
+					.Format("*.xsd", "XML Schema")
+					.Async.Ask();
+
+				if (askResult.HasError)
+				{
+					app.Shutdown();
+					return;
+				}
+
+				schemaPath = askResult.Data;
+			}
+			else
+			{
+				schemaPath = commandLine.SchemaPaths[0];
+			}
+
+			try
+			{
+				var loader = mServices.Resolve<SchemaLoader>();
+				var result = await loader.LoadAsync(schemaPath);
+				
+				result.ThrowIfError();
+
+				await foreach (var model in loader.GetRootsAsync())
+				{
+					var vm = new ComplexTypeViewModel(model);
+					app.Execute(() => Schemas.Items.Add(vm));
+				}
+			}
+			catch (Exception e)
+			{
+				await mServices.Resolve<IMessageBox>()
+					.Owner(mServices.Resolve<MainWindow>())
+					.Title("Error opening schema")
+					.Error(e.Message)
+					.Async.Display();
+				
+				app.Shutdown();
+			}
 		}
 	}
 }

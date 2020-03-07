@@ -1,10 +1,10 @@
 ﻿using System;
 using JetBrains.Annotations;
-using XyrusWorx;
 using XyrusWorx.Diagnostics;
 
 namespace XyrusWorx.SchemaBrowser.Business 
 {
+	[PublicAPI]
 	public abstract class XsdParticle<T> : IXsdParticle
 	{
 		public void Process([NotNull] ProcessorContext context, [NotNull] T model)

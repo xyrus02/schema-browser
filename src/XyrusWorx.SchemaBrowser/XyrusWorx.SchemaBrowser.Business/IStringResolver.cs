@@ -1,9 +1,9 @@
 ﻿using System;
 using JetBrains.Annotations;
-using XyrusWorx;
 
 namespace XyrusWorx.SchemaBrowser.Business
 {
+	[PublicAPI]
 	public interface IStringResolver 
 	{
 		[NotNull]

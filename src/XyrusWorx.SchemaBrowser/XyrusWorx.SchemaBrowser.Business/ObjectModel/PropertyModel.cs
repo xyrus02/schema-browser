@@ -2,10 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
-using XyrusWorx;
 
 namespace XyrusWorx.SchemaBrowser.Business.ObjectModel 
 {
+	[PublicAPI]
 	public class PropertyModel : IAnnotableModel, IEnumerable<IXsdPropertyDescription>, IXsdPropertyDescription
 	{
 		public PropertyModel([NotNull] string propertyName)

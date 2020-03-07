@@ -1,11 +1,13 @@
 ﻿using System.Text.RegularExpressions;
 using System.Xml.Linq;
+using JetBrains.Annotations;
 using XyrusWorx.Collections;
 using XyrusWorx.Diagnostics;
 using XyrusWorx.SchemaBrowser.Business.ObjectModel;
 
 namespace XyrusWorx.SchemaBrowser.Business
 {
+	[PublicAPI]
 	public class PropertyParticle : XsdParticle<ComplexTypeModel>
 	{
 		protected override void ProcessOverride(ProcessorContext context, ComplexTypeModel model)

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AxialisIconCollection>
+  <Name></Name>
+  <Icon>
+    <Name>RootComplexType</Name>
+    <StockIconName>class.axvi</StockIconName>
+    <StockIconFamily>Axialis Flat Pro 2017</StockIconFamily>
+    <StockIconSet>Development</StockIconSet>
+    <StockOverlayName>bookmark.axvi</StockOverlayName>
+    <StockOverlayPos>3</StockOverlayPos>
+    <ResourceIDValue>100</ResourceIDValue>
+    <ResourceID>ID_ROOT_COMPLEX_TYPE</ResourceID>
+  </Icon>
+  <Icon>
+    <Name>ComplexType</Name>
+    <StockIconName>class.axvi</StockIconName>
+    <StockIconFamily>Axialis Flat Pro 2017</StockIconFamily>
+    <StockIconSet>Development</StockIconSet>
+    <StockOverlayName></StockOverlayName>
+    <StockOverlayPos>8316176</StockOverlayPos>
+    <ResourceIDValue>101</ResourceIDValue>
+    <ResourceID>ID_COMPLEX_TYPE</ResourceID>
+  </Icon>
+</AxialisIconCollection>

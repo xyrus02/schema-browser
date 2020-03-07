@@ -4,25 +4,38 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:views="clr-namespace:XyrusWorx.SchemaBrowser.Windows.Views"
-        mc:Ignorable="d" Title="Schema Browser" Height="450" Width="800"
-        Icon="pack://application:,,,/Resources/Images/app.ico">
+        xmlns:xw="http://schemas.xyrus-worx.org/2017/core/xaml"
+        xmlns:viewModels="clr-namespace:XyrusWorx.SchemaBrowser.Windows.ViewModels"
+        mc:Ignorable="d" Title="Schema Browser" Height="720" Width="1280"
+        Icon="pack://application:,,,/Resources/Images/app.ico" 
+        d:DataContext="{d:DesignInstance Type=viewModels:MainViewModel}">
 
-	<Grid>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="40" />
-			<RowDefinition />
-		</Grid.RowDefinitions>
-
-		<Border Background="{StaticResource ThemeColorBrush}">
-			<StackPanel Orientation="Horizontal">
-				<!-- Toolbar -->
-			</StackPanel>
+	<Grid Background="#eee">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="250" MinWidth="100">
+				<ColumnDefinition.MaxWidth>
+					<MultiBinding>
+						<MultiBinding.Converter>
+							<xw:ArithmeticConverter Operation="Subtract" />
+						</MultiBinding.Converter>
+						<Binding RelativeSource="{RelativeSource FindAncestor, AncestorType=Grid}" Path="ActualWidth" />
+						<Binding RelativeSource="{RelativeSource Self}" Path="MinWidth" />
+						<Binding Source="200" />
+					</MultiBinding>
+				</ColumnDefinition.MaxWidth>
+			</ColumnDefinition>
+			<ColumnDefinition>
+				
+			</ColumnDefinition>
+		</Grid.ColumnDefinitions>
+		
+		<Border Grid.Column="0">
+			<views:SchemaListView DataContext="{Binding Schemas, Mode=OneWay}" />
 		</Border>
-		<Border Background="#eee" Grid.Row="1">
-			<!-- Client -->
-		</Border>
+		
+		<GridSplitter Background="#ddd" Grid.Column="1" ResizeDirection="Columns" ResizeBehavior="PreviousAndCurrent" HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="2" />
 
-		<views:SplashView Grid.Row="0" Grid.RowSpan="2">
+		<views:SplashView Grid.Column="0" Grid.ColumnSpan="2" IsHitTestVisible="{Binding IsLoading, Mode=OneWay}">
 			<views:SplashView.Style>
 				<Style>
 					<Style.Triggers>

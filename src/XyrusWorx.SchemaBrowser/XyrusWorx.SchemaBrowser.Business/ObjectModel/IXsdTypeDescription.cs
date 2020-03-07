@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Linq;
+using JetBrains.Annotations;
 
 namespace XyrusWorx.SchemaBrowser.Business.ObjectModel
 {
+	[PublicAPI]
 	public interface IXsdTypeDescription : IEnumerable<IXsdPropertyDescription>, IXsdModel
 	{
 		XName TypeName { get; }
