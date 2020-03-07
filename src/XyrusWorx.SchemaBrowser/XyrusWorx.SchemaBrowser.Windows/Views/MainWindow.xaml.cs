@@ -1,4 +1,4 @@
-﻿namespace XyrusWorx.SchemaBrowser.Windows
+﻿namespace XyrusWorx.SchemaBrowser.Windows.Views
 {
 	public partial class MainWindow
 	{

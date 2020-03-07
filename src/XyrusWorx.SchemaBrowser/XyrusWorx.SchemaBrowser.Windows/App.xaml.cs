@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using XyrusWorx.SchemaBrowser.Windows.ViewModels;
 
 [assembly: ThemeInfo(
 	ResourceDictionaryLocation.None,
@@ -9,12 +10,17 @@ namespace XyrusWorx.SchemaBrowser.Windows
 {
 	public partial class App
 	{
+		public MainViewModel MainViewModel { get; } = new MainViewModel();
+
 		protected override void OnStartup(StartupEventArgs e)
 		{
-			MainWindow = new MainWindow();
+			ShutdownMode = ShutdownMode.OnMainWindowClose;
+
+			MainWindow = new Views.MainWindow();
+			MainWindow.DataContext = MainViewModel;
 			MainWindow.Show();
 
-			ShutdownMode = ShutdownMode.OnMainWindowClose;
+			MainViewModel.Load();
 		}
 	}
 }

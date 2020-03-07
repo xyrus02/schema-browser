@@ -9,29 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\Images\app.ico" />
-    <None Remove="Resources\Images\logo-192.png" />
-    <None Remove="Resources\Images\logo-512.png" />
-    <None Remove="Resources\Images\logo.svg" />
+    <PackageReference Include="XyrusWorx.Foundation.Threading" Version="3.1.2" />
+    <PackageReference Include="XyrusWorx.Foundation.Windows" Version="3.1.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\Images\app.ico">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Resource>
-    <Resource Include="Resources\Images\logo-192.png">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Resource>
-    <Resource Include="Resources\Images\logo-512.png">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Resource>
-    <Resource Include="Resources\Images\logo.svg">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Resource>
+    <Resource Include="Resources\Images\app.ico" />
+    <Resource Include="Resources\Images\logo-192.png" />
+    <Resource Include="Resources\Images\logo-512.png" />
+    <Resource Include="Resources\Images\logo.svg" />
   </ItemGroup>
 
 </Project>
