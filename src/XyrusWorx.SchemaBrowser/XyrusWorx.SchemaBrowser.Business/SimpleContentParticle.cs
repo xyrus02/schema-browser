@@ -15,6 +15,8 @@ namespace XyrusWorx.SchemaBrowser.Business
 				source.Element(XName.Get("extension", XmlIndex.XsdNamespace)) ??
 				source.Element(XName.Get("restriction", XmlIndex.XsdNamespace));
 
+			var propertyGroup = new PropertyGroupModel(model, PropertyGroupType.Virtual);
+			
 			XName baseName = null;
 
 			if (childElement != null)
@@ -45,7 +47,7 @@ namespace XyrusWorx.SchemaBrowser.Business
 								// ignored
 								break;
 							case "attribute":
-								context.Read<PropertyParticle>(model);
+								context.Read<PropertyParticle>(propertyGroup);
 								break;
 						}
 					}
@@ -73,8 +75,6 @@ namespace XyrusWorx.SchemaBrowser.Business
 			property.MinOccurs = 1;
 			property.MaxOccurs = 1;
 			property.IsContent = true;
-			
-			var propertyGroup = new PropertyGroupModel(model, PropertyGroupType.Virtual);
 			
 			propertyGroup.Properties.Add(new StringKey(), property);
 			

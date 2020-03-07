@@ -33,8 +33,10 @@ namespace XyrusWorx.SchemaBrowser.Windows
 			mServiceLocator.Register(SystemLog = mServiceLocator.CreateInstance<NullLogWriter>());
 			
 			mServiceLocator.RegisterSingleton<LocalizationService>();
+			mServiceLocator.Register(mServiceLocator.Resolve<LocalizationService>().GetOutputLanguage("en-US"));
+			
 			mServiceLocator.RegisterSingleton<SchemaLoader>();
-
+			
 			mServiceLocator.Register<IOpenFileDialog, WindowsOpenFileDialog>();
 			mServiceLocator.Register<IOpenFolderDialog, WindowsOpenFolderDialog>();
 			mServiceLocator.Register<IMessageBox, WindowsMessageBox>();

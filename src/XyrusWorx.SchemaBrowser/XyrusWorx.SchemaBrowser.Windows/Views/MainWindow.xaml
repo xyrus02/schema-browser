@@ -34,6 +34,7 @@
 		</Border>
 		
 		<GridSplitter Background="#ddd" Grid.Column="1" ResizeDirection="Columns" ResizeBehavior="PreviousAndCurrent" HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="2" />
+		<views:TypeModelView Background="White" DataContext="{Binding Schemas.Selection.SelectedItem, Mode=OneWay}" Grid.Column="1" Margin="2,0,0,0" />
 
 		<views:SplashView Grid.Column="0" Grid.ColumnSpan="2" IsHitTestVisible="{Binding IsLoading, Mode=OneWay}">
 			<views:SplashView.Style>

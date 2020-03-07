@@ -12,8 +12,12 @@ namespace XyrusWorx.SchemaBrowser.Windows.ViewModels
         {
             var oc = new ObservableCollection<ComplexTypeViewModel>();
             oc.CollectionChanged += (o, e) => NotifyChange(nameof(HasItems));
+            
             Items = oc;
+            Selection = new SelectionViewModel<ComplexTypeViewModel>(this);
         }
+        
+        public SelectionViewModel<ComplexTypeViewModel> Selection { get; }
 		
         public override IList<ComplexTypeViewModel> Items { get; }
     }

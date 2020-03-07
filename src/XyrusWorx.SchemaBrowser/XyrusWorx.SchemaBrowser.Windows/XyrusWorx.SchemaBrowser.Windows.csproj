@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
     <PackageReference Include="XyrusWorx.Foundation.Threading" Version="3.1.2" />
     <PackageReference Include="XyrusWorx.Foundation.Windows" Version="3.1.2" />
   </ItemGroup>

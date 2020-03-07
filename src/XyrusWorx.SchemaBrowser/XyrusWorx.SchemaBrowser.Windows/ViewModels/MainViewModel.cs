@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Xml.Linq;
 using JetBrains.Annotations;
 using XyrusWorx.Runtime;
 using XyrusWorx.SchemaBrowser.Windows.Services;
@@ -74,7 +76,7 @@ namespace XyrusWorx.SchemaBrowser.Windows.ViewModels
 
 				await foreach (var model in loader.GetRootsAsync())
 				{
-					var vm = new ComplexTypeViewModel(model);
+					var vm = new ComplexTypeViewModel(mServices, new HashSet<XName>(), model, item => true);
 					app.Execute(() => Schemas.Items.Add(vm));
 				}
 			}

@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
@@ -12,6 +13,9 @@ namespace XyrusWorx.SchemaBrowser.Business
         protected sealed override void ProcessOverride(ProcessorContext context, ComplexTypeModel model)
         {
             var propertyGroup = FillGroup(context, CreateGroup( context.Peek(), model));
+            
+            Debug.Print(propertyGroup.Owner.DisplayName);
+            
             if (propertyGroup.Properties.Any())
             {
                 model.PropertyGroups.Add(propertyGroup);

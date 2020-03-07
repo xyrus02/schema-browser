@@ -22,7 +22,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
     
-    <ListView ItemsSource="{Binding Source={StaticResource Items}}" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" Margin="-1">
+    <ListView ItemsSource="{Binding Source={StaticResource Items}}" SelectedItem="{Binding Path=Selection.SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" Margin="-1">
         <ItemsControl.ItemContainerStyle>
             <Style TargetType="ListViewItem">
                 <Setter Property="Margin" Value="0" />
@@ -64,7 +64,7 @@
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                                     
-                    <ContentControl Focusable="False" Content="{StaticResource RootComplexTypeSmall}" Width="16" Height="16" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                    <ContentControl Focusable="False" Content="{StaticResource DataTypeIcon}" Width="16" Height="16" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" />
                     <StackPanel VerticalAlignment="Top"  Grid.Column="1">
                         <TextBlock Text="{Binding DisplayName, Mode=OneWay}" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" TextAlignment="Left" />
                         <TextBlock Text="{Binding Namespace, Mode=OneWay}" Foreground="#666" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" TextAlignment="Left" />    

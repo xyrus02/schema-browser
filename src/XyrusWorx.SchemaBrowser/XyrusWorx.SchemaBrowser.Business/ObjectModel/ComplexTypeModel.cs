@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 using JetBrains.Annotations;
-using XyrusWorx.Collections;
 
 namespace XyrusWorx.SchemaBrowser.Business.ObjectModel 
 {
@@ -26,7 +26,7 @@ namespace XyrusWorx.SchemaBrowser.Business.ObjectModel
 
 		public void InheritFrom(ComplexTypeModel baseModel)
 		{
-			foreach (var property in baseModel.PropertyGroups)
+			foreach (var property in baseModel.PropertyGroups.Where(x => x.PropertyGroups.Any() || x.Properties.Any()))
 			{
 				PropertyGroups.Add(property);
 			}
