@@ -30,7 +30,7 @@
 		</Grid.ColumnDefinitions>
 		
 		<Border Grid.Column="0">
-			<views:SchemaListView DataContext="{Binding Schemas, Mode=OneWay}" />
+			<views:TypeListView DataContext="{Binding Schemas, Mode=OneWay}" />
 		</Border>
 		
 		<GridSplitter Background="#ddd" Grid.Column="1" ResizeDirection="Columns" ResizeBehavior="PreviousAndCurrent" HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="2" />

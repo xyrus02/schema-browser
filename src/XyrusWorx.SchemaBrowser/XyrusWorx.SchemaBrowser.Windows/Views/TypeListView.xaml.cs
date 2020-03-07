@@ -1,8 +1,8 @@
 namespace XyrusWorx.SchemaBrowser.Windows.Views
 {
-    public partial class SchemaListView
+    public partial class TypeListView
     {
-        public SchemaListView()
+        public TypeListView()
         {
             InitializeComponent();
         }
