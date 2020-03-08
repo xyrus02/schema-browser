@@ -79,6 +79,8 @@ namespace XyrusWorx.SchemaBrowser.Windows.ViewModels
 					var vm = new ComplexTypeViewModel(mServices, new HashSet<XName>(), model, item => true, true);
 					app.Execute(() => Schemas.Items.Add(vm));
 				}
+				
+				Schemas.Selection.SelectFirst();
 			}
 			catch (Exception e)
 			{

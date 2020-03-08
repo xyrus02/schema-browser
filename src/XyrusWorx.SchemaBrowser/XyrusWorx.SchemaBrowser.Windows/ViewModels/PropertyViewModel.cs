@@ -25,6 +25,8 @@ namespace XyrusWorx.SchemaBrowser.Windows.ViewModels
             typeStack.Add(model.DataType.TypeName);
         }
 
+        public bool IsAttribute => Model.IsAttribute;
+        public bool IsContent => Model.IsContent;
         public bool IsLast => mIsLast(this);
         public bool IsEmpty => false;
 

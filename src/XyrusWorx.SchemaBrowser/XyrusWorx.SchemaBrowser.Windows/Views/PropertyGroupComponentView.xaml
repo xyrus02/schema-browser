@@ -1,0 +1,78 @@
+<UserControl 
+    x:Class="XyrusWorx.SchemaBrowser.Windows.Views.PropertyGroupComponentView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:viewModels="clr-namespace:XyrusWorx.SchemaBrowser.Windows.ViewModels"
+    xmlns:views="clr-namespace:XyrusWorx.SchemaBrowser.Windows.Views"
+    xmlns:xw="http://schemas.xyrus-worx.org/2017/core/xaml"
+    mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300"
+    d:DataContext="{d:DesignInstance Type=viewModels:PropertyGroupViewModel}">
+    
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Resources/Icons.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
+    <Border MinHeight="24" BorderBrush="#aaa">
+        <Border.BorderThickness>
+			<Binding Path="IsLast" Mode="OneWay">
+				<Binding.Converter>
+                    <xw:BooleanConverter TrueValue="0" FalseValue="0,0,0,1" />
+				</Binding.Converter>
+			</Binding>
+        </Border.BorderThickness>
+	    <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" BorderThickness="0,0,1,0" BorderBrush="#aaa">
+                <FrameworkElement.Visibility>
+					<Binding Path="IsVirtual" Mode="OneWay">
+                        <Binding.Converter>
+                            <xw:BooleanToInvisibilityConverter />
+                        </Binding.Converter>
+					</Binding>
+                </FrameworkElement.Visibility>
+	            <Border.Background>
+                    <SolidColorBrush Color="{StaticResource ThemeColor}" Opacity="0.05" />
+	            </Border.Background>
+	            <StackPanel Orientation="Vertical" Margin="4">
+                    <ContentControl Focusable="False" Content="{StaticResource PropertyGroupIcon}" Width="16" Height="16" Margin="4" />
+                    <TextBlock RenderTransformOrigin="0,0" Text="{Binding DisplayName, Mode=OneWay}" HorizontalAlignment="Center" TextWrapping="NoWrap">
+                        <TextBlock.LayoutTransform>
+                            <TransformGroup>
+                                <RotateTransform Angle="90" />
+                                <TranslateTransform X="0" />
+                            </TransformGroup>
+                        </TextBlock.LayoutTransform>
+                    </TextBlock>
+                </StackPanel>
+            </Border>
+
+            <ItemsControl Grid.Column="1" ItemsSource="{Binding Children, Mode=OneWay}" Height="Auto" VerticalAlignment="Top">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <views:TypeModelView>
+                            <FrameworkElement.Visibility>
+								<MultiBinding>
+                                    <MultiBinding.Converter>
+                                        <xw:MultiBooleanOrInvisibilityConverter />
+                                    </MultiBinding.Converter>
+                                    <Binding Path="IsEmpty" />
+                                    <Binding Path="IsContent" />
+								</MultiBinding>
+                            </FrameworkElement.Visibility>
+                        </views:TypeModelView>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
+    </Border>
+</UserControl>
