@@ -7,6 +7,7 @@
     xmlns:viewModels="clr-namespace:XyrusWorx.SchemaBrowser.Windows.ViewModels"
     xmlns:views="clr-namespace:XyrusWorx.SchemaBrowser.Windows.Views"
     xmlns:xw="http://schemas.xyrus-worx.org/2017/core/xaml"
+    xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
     mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300"
     d:DataContext="{d:DesignInstance Type=viewModels:PropertyGroupViewModel}">
     
@@ -18,7 +19,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
     
-    <Border MinHeight="24" BorderBrush="#aaa">
+    <Border MinHeight="24" BorderBrush="{DynamicResource SystemBaseLowColorBrush}">
         <Border.BorderThickness>
 			<Binding Path="IsLast" Mode="OneWay">
 				<Binding.Converter>
@@ -32,7 +33,7 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <Border Grid.Column="0" BorderThickness="0,0,1,0" BorderBrush="#aaa">
+            <Border Grid.Column="0" BorderThickness="0,0,1,0" BorderBrush="{DynamicResource SystemBaseLowColorBrush}">
                 <FrameworkElement.Visibility>
 					<Binding Path="IsVirtual" Mode="OneWay">
                         <Binding.Converter>
@@ -41,7 +42,7 @@
 					</Binding>
                 </FrameworkElement.Visibility>
 	            <Border.Background>
-                    <SolidColorBrush Color="{StaticResource ThemeColor}" Opacity="0.05" />
+                    <SolidColorBrush Color="{x:Static fw:AccentColors.ImmersiveSystemAccent}" Opacity="0.05" />
 	            </Border.Background>
 	            <StackPanel Orientation="Vertical" Margin="4">
                     <ContentControl Focusable="False" Content="{StaticResource PropertyGroupIcon}" Width="16" Height="16" Margin="4" />

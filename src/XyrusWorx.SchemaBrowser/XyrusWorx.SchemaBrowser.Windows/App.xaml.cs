@@ -40,6 +40,11 @@ namespace XyrusWorx.SchemaBrowser.Windows
 			mServiceLocator.Register<IOpenFileDialog, WindowsOpenFileDialog>();
 			mServiceLocator.Register<IOpenFolderDialog, WindowsOpenFolderDialog>();
 			mServiceLocator.Register<IMessageBox, WindowsMessageBox>();
+			
+			FrameworkElement.StyleProperty.OverrideMetadata(typeof(Window), new FrameworkPropertyMetadata
+			{
+				DefaultValue = FindResource(typeof(Window))
+			});
 		}
 
 		public ILogWriter SystemLog { get; }

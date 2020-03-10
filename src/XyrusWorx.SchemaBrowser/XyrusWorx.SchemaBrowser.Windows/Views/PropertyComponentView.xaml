@@ -8,6 +8,7 @@
     xmlns:fa="http://schemas.fontawesome.io/icons/"
     xmlns:xw="http://schemas.xyrus-worx.org/2017/core/xaml"
     xmlns:views="clr-namespace:XyrusWorx.SchemaBrowser.Windows.Views"
+    xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
     mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300"
     d:DataContext="{d:DesignInstance Type=viewModels:PropertyViewModel}">
     
@@ -45,9 +46,9 @@
         </ContentControl>
 	    <TextBlock Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis">
             <Run Text="{Binding DisplayName, Mode=OneWay}" />
-            <Run Text="{Binding Quantifier, Mode=OneWay}" Foreground="#666" />
+            <Run Text="{Binding Quantifier, Mode=OneWay}" Foreground="{DynamicResource SystemBaseMediumColorBrush}" />
         </TextBlock>
-        <TextBlock Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" Text="{Binding DataTypeName, Mode=OneWay}" Foreground="{StaticResource ThemeColorBrush}" />
+        <TextBlock Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" Text="{Binding DataTypeName, Mode=OneWay}" Foreground="{x:Static fw:AccentColors.ImmersiveSystemAccentBrush}" />
         <ToggleButton Grid.Row="0" Grid.Column="3" VerticalAlignment="Center" IsChecked="{Binding IsExpanded, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <ToggleButton.Visibility>
                 <Binding Path="IsComplexType" Mode="OneWay">
@@ -61,7 +62,7 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="ToggleButton">
-                                <fa:FontAwesome Icon="ChevronCircleDown" x:Name="fa" Foreground="{StaticResource ThemeColorBrush}" FontSize="14" />
+                                <fa:FontAwesome Icon="ChevronCircleDown" x:Name="fa" Foreground="{x:Static fw:AccentColors.ImmersiveSystemAccentBrush}" FontSize="14" />
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsChecked" Value="True">
                                         <Setter TargetName="fa" Property="Icon" Value="ChevronCircleUp" />

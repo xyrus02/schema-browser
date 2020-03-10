@@ -9,7 +9,7 @@
     xmlns:views="clr-namespace:XyrusWorx.SchemaBrowser.Windows.Views"
     xmlns:fa="http://schemas.fontawesome.io/icons/"
     mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300"
-    d:DataContext="{d:DesignInstance Type=viewModels:IPropertyContainerViewModel}">
+    d:DataContext="{d:DesignInstance Type=viewModels:IHierarchyViewModel}">
     
     <UserControl.Resources>
         <ResourceDictionary>

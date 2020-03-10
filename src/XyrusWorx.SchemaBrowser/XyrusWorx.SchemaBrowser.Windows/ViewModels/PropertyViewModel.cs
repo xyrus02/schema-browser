@@ -9,7 +9,7 @@ using XyrusWorx.Windows.ViewModels;
 namespace XyrusWorx.SchemaBrowser.Windows.ViewModels
 {
     [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
-    public sealed class PropertyViewModel : ViewModel<PropertyModel>, IPropertyContainerViewModel
+    public sealed class PropertyViewModel : ViewModel<PropertyModel>, IHierarchyViewModel
     {
         private readonly IServiceLocator mServices;
         private readonly Func<object, bool> mIsLast;
@@ -67,6 +67,7 @@ namespace XyrusWorx.SchemaBrowser.Windows.ViewModels
             }
         }
         
-        IPropertyContainerViewModel[] IPropertyContainerViewModel.Children { get; } = new IPropertyContainerViewModel[0];
+        IHierarchyViewModel[] IHierarchyViewModel.Children { get; } = new IHierarchyViewModel[0];
+        IHierarchyViewModel[] IHierarchyViewModel.ComplexChildren { get; } = new IHierarchyViewModel[0];
     }
 }

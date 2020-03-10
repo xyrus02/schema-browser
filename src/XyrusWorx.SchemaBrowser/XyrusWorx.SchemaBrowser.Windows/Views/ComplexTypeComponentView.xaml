@@ -7,6 +7,7 @@
 	xmlns:local="clr-namespace:XyrusWorx.SchemaBrowser.Windows.Views"
 	xmlns:viewModels="clr-namespace:XyrusWorx.SchemaBrowser.Windows.ViewModels"
 	xmlns:xw="http://schemas.xyrus-worx.org/2017/core/xaml"
+	xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
 	mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300"
 	d:DataContext="{d:DesignInstance Type=viewModels:ComplexTypeViewModel}">
 	
@@ -18,16 +19,16 @@
 		</ResourceDictionary>
 	</UserControl.Resources>
 	
-	<Border MinHeight="24" BorderBrush="#aaa" Margin="10" BorderThickness="1" VerticalAlignment="Top" SnapsToDevicePixels="True">
+	<Border MinHeight="24" BorderBrush="{DynamicResource SystemBaseLowColorBrush}" Margin="10" BorderThickness="1" VerticalAlignment="Top" SnapsToDevicePixels="True">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <Border Grid.Column="0" BorderThickness="0,0,1,0" BorderBrush="#aaa">
+            <Border Grid.Column="0" BorderThickness="0,0,1,0" BorderBrush="{DynamicResource SystemBaseLowColorBrush}">
 	            <Border.Background>
-		            <SolidColorBrush Color="{StaticResource ThemeColor}" Opacity="0.15" />
+		            <SolidColorBrush Color="{x:Static fw:AccentColors.ImmersiveSystemAccent}" Opacity="0.15" />
 	            </Border.Background>
 	            <FrameworkElement.Height>
 		            <Binding ElementName="items" Path="ActualHeight" Mode="OneWay" />
@@ -56,7 +57,7 @@
 
             <ItemsControl Grid.Column="1" ItemsSource="{Binding Children, Mode=OneWay}" x:Name="items" Height="Auto" VerticalAlignment="Top">
                 <ItemsControl.ItemTemplate>
-	                <DataTemplate DataType="{x:Type viewModels:IPropertyContainerViewModel}">
+	                <DataTemplate DataType="{x:Type viewModels:IHierarchyViewModel}">
 		                <local:TypeModelView>
 			                <FrameworkElement.Visibility>
 				                <Binding Path="IsEmpty" Mode="OneWay">

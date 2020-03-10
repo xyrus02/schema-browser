@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 using JetBrains.Annotations;
+using XyrusWorx.Collections;
 using XyrusWorx.Runtime;
 using XyrusWorx.SchemaBrowser.Windows.Services;
 using XyrusWorx.SchemaBrowser.Windows.Views;
@@ -31,7 +34,7 @@ namespace XyrusWorx.SchemaBrowser.Windows.ViewModels
 			}
 		}
 		
-		public SchemaCollectionViewModel Schemas { get; } = new SchemaCollectionViewModel();
+		public HierarchyRootViewModel Schemas { get; } = new HierarchyRootViewModel();
 
 		public async void Load([NotNull] ICommandLine commandLine)
 		{
@@ -74,12 +77,26 @@ namespace XyrusWorx.SchemaBrowser.Windows.ViewModels
 				
 				result.ThrowIfError();
 
+				var namespaces = new Dictionary<string, List<ComplexTypeViewModel>>();
+				var noNamespace = new List<ComplexTypeViewModel>();
+
 				await foreach (var model in loader.GetRootsAsync())
 				{
-					var vm = new ComplexTypeViewModel(mServices, new HashSet<XName>(), model, item => true, true);
-					app.Execute(() => Schemas.Items.Add(vm));
+					var xmlns = model.TypeName.Namespace.NamespaceName;
+					var types = string.IsNullOrWhiteSpace(xmlns) 
+						? noNamespace 
+						: !namespaces.ContainsKey(xmlns) 
+							? new List<ComplexTypeViewModel>().TryTransform(x => { namespaces.Add(xmlns, x); return x; }) 
+							: namespaces[xmlns];
+
+					types.Add(new ComplexTypeViewModel(mServices, new HashSet<XName>(), model, item => true, true));
 				}
+
+				var namespaceViewModels =
+					from item in namespaces
+					select new NamespaceViewModel(item.Key, item.Value);
 				
+				app.Execute(() => Schemas.Items.Reset(noNamespace.OfType<IHierarchyViewModel>().Concat(namespaceViewModels)));
 				Schemas.Selection.SelectFirst();
 			}
 			catch (Exception e)

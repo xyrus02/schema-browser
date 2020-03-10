@@ -10,7 +10,7 @@ using XyrusWorx.Windows.ViewModels;
 namespace XyrusWorx.SchemaBrowser.Windows.ViewModels
 {
     [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
-    public sealed class ComplexTypeViewModel : ViewModel<ComplexTypeModel>, IPropertyContainerViewModel
+    public sealed class ComplexTypeViewModel : ViewModel<ComplexTypeModel>, IHierarchyViewModel
     {
         private readonly IServiceLocator mServices;
         private readonly Func<object, bool> mIsLast;
@@ -22,7 +22,7 @@ namespace XyrusWorx.SchemaBrowser.Windows.ViewModels
             mIsLast = isLast;
 
             typeStack.Add(model.TypeName);
-            Children = model.PropertyGroups.Select(x => (IPropertyContainerViewModel)new PropertyGroupViewModel(mServices, typeStack, x, item => Children.Last() == item)).ToArray();
+            Children = model.PropertyGroups.Select(x => (IHierarchyViewModel)new PropertyGroupViewModel(mServices, typeStack, x, item => Children.Last() == item)).ToArray();
         }
         
         public bool IsLast => mIsLast(this);
@@ -35,6 +35,7 @@ namespace XyrusWorx.SchemaBrowser.Windows.ViewModels
         public bool HasAnnotation => !string.IsNullOrWhiteSpace(Annotation);
         public string Annotation => Model.Annotation;
         
-        public IPropertyContainerViewModel[] Children { get; }
+        public IHierarchyViewModel[] Children { get; }
+        IHierarchyViewModel[] IHierarchyViewModel.ComplexChildren { get; } = new IHierarchyViewModel[0];
     }
 }

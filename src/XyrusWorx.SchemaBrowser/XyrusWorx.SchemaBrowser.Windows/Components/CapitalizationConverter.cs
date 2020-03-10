@@ -4,7 +4,7 @@ using System.Windows.Data;
 
 namespace XyrusWorx.SchemaBrowser.Windows.Components
 {
-    public class CapitalizationConverter : IValueConverter
+    class CapitalizationConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

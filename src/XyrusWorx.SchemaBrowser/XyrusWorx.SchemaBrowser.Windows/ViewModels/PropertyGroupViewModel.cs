@@ -10,7 +10,7 @@ using XyrusWorx.Windows.ViewModels;
 namespace XyrusWorx.SchemaBrowser.Windows.ViewModels
 {
     [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
-    public sealed class PropertyGroupViewModel : ViewModel<PropertyGroupModel>, IPropertyContainerViewModel
+    public sealed class PropertyGroupViewModel : ViewModel<PropertyGroupModel>, IHierarchyViewModel
     {
         private readonly IServiceLocator mServices;
         private readonly Func<object, bool> mIsLast;
@@ -22,9 +22,9 @@ namespace XyrusWorx.SchemaBrowser.Windows.ViewModels
             mIsLast = isLast;
 
             Children = 
-                new IPropertyContainerViewModel[0]
-                    .Concat(model.PropertyGroups.Select(x => (IPropertyContainerViewModel)new PropertyGroupViewModel(mServices, typeStack, x, item => Children.Last() == item)))
-                    .Concat(model.Properties.Values.Where(x => !typeStack.Contains(x.DataType.TypeName)).Select(x => (IPropertyContainerViewModel)new PropertyViewModel(mServices, typeStack, x, item => Children.Last() == item)))
+                new IHierarchyViewModel[0]
+                    .Concat(model.PropertyGroups.Select(x => (IHierarchyViewModel)new PropertyGroupViewModel(mServices, typeStack, x, item => Children.Last() == item)))
+                    .Concat(model.Properties.Values.Where(x => !typeStack.Contains(x.DataType.TypeName)).Select(x => (IHierarchyViewModel)new PropertyViewModel(mServices, typeStack, x, item => Children.Last() == item)))
                     .ToArray();
         }
 
@@ -42,6 +42,7 @@ namespace XyrusWorx.SchemaBrowser.Windows.ViewModels
 
         public bool IsVirtual => Model.GroupType == PropertyGroupType.Virtual;
         
-        public IPropertyContainerViewModel[] Children { get; }
+        public IHierarchyViewModel[] Children { get; }
+        IHierarchyViewModel[] IHierarchyViewModel.ComplexChildren { get; } = new IHierarchyViewModel[0];
     }
 }

@@ -1,76 +1,57 @@
-<UserControl x:Class="XyrusWorx.SchemaBrowser.Windows.Views.TypeListView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:viewModels="clr-namespace:XyrusWorx.SchemaBrowser.Windows.ViewModels"
-             xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
-             mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300" 
-             d:DataContext="{d:DesignInstance Type=viewModels:SchemaCollectionViewModel}">
+<UserControl 
+    x:Class="XyrusWorx.SchemaBrowser.Windows.Views.TypeListView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:components="clr-namespace:XyrusWorx.SchemaBrowser.Windows.Components"
+    xmlns:viewModels="clr-namespace:XyrusWorx.SchemaBrowser.Windows.ViewModels"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:xw="http://schemas.xyrus-worx.org/2017/core/xaml"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300" 
+    d:DataContext="{d:DesignInstance Type=viewModels:HierarchyRootViewModel}">
     
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Resources/Icons.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            
-            <CollectionViewSource Source="{Binding Items, Mode=OneWay}" x:Key="Items">
-                <CollectionViewSource.SortDescriptions>
-                    <componentModel:SortDescription PropertyName="DisplayName" Direction="Ascending" /> 
-                </CollectionViewSource.SortDescriptions>
-            </CollectionViewSource>
         </ResourceDictionary>
     </UserControl.Resources>
     
-    <ListView ItemsSource="{Binding Source={StaticResource Items}}" SelectedItem="{Binding Path=Selection.SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" Margin="-1">
-        <ItemsControl.ItemContainerStyle>
-            <Style TargetType="ListViewItem">
-                <Setter Property="Margin" Value="0" />
-                <Setter Property="Padding" Value="4,2" />
-                <Setter Property="BorderThickness" Value="0" />
-                <Setter Property="Background" Value="Transparent" />
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="ListViewItem">
-                            <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-                                <ContentPresenter Margin="{TemplateBinding Padding}" />
-                            </Border>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-                <Style.Triggers>
-                    <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Background">
-                            <Setter.Value>
-                                <SolidColorBrush Color="{StaticResource ThemeColor}" Opacity="0.1" />
-                            </Setter.Value>
-                        </Setter>
-                    </Trigger>
-                    <Trigger Property="IsSelected" Value="True">
-                        <Setter Property="Background">
-                            <Setter.Value>
-                                <SolidColorBrush Color="{StaticResource ThemeColor}" Opacity="0.25" />
-                            </Setter.Value>
-                        </Setter>
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
-        </ItemsControl.ItemContainerStyle>
-        <ItemsControl.ItemTemplate>
-            <DataTemplate DataType="viewModels:ComplexTypeViewModel">
-                <Grid Height="Auto" Margin="0,2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="20" />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                                    
-                    <ContentControl Focusable="False" Content="{StaticResource DataTypeIcon}" Width="16" Height="16" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                    <StackPanel VerticalAlignment="Top"  Grid.Column="1">
-                        <TextBlock Text="{Binding DisplayName, Mode=OneWay}" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" TextAlignment="Left" />
-                        <TextBlock Text="{Binding Namespace, Mode=OneWay}" Foreground="#666" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" TextAlignment="Left" />    
-                    </StackPanel>
-                </Grid>
-            </DataTemplate>
-        </ItemsControl.ItemTemplate>
-    </ListView>
+    <Border>
+        <TreeView Background="Transparent" BorderBrush="Transparent" BorderThickness="0" ItemsSource="{Binding Items, Mode=OneWay}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" TextElement.Foreground="{DynamicResource WhiteBrush}">
+            <i:Interaction.Behaviors>
+                <components:BindableSelectedItemBehavior SelectedItem="{Binding Selection.SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            </i:Interaction.Behaviors>
+            <ItemsControl.ItemTemplate>
+                <HierarchicalDataTemplate DataType="viewModels:IHierarchyViewModel" ItemsSource="{Binding ComplexChildren, Mode=OneWay}">
+                    <Border>
+                        <Grid Margin="0,2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                                        
+                            <ContentControl Focusable="False" Content="{Binding}" Width="16" Height="16" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                <ContentControl.ContentTemplateSelector>
+                                    <xw:DictionaryTemplateSelector>
+                                        <DataTemplate DataType="{x:Type viewModels:NamespaceViewModel}">
+                                            <ContentControl Focusable="False" Content="{StaticResource NamespaceLightIcon}" />
+                                        </DataTemplate>
+                                        <DataTemplate DataType="{x:Type viewModels:ComplexTypeViewModel}">
+                                            <ContentControl Focusable="False" Content="{StaticResource DataTypeLightIcon}" />
+                                        </DataTemplate>    
+                                    </xw:DictionaryTemplateSelector>
+                                </ContentControl.ContentTemplateSelector>
+                            </ContentControl>
+                            <TextBlock Grid.Column="1" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" Text="{Binding DisplayName, Mode=OneWay}" Margin="4" Foreground="{DynamicResource WhiteBrush}" />
+                        </Grid>    
+                    </Border>
+                </HierarchicalDataTemplate>
+            </ItemsControl.ItemTemplate>
+        </TreeView>
+    </Border>
+    
 </UserControl>
